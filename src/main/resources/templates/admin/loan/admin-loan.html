@@ -1,0 +1,59 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/common/common}">
+<head>
+	<title>借款列表</title>
+</head>
+
+<body layout:fragment="content">
+<nav class="breadcrumb">
+	<i class="Hui-iconfont">&#xe67f;</i>
+	首页 <span class="c-gray en">&gt;</span>
+	系统管理 <span class="c-gray en">&gt;</span>
+	借款管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<form id="myForm" th:action="@{/admin/loan}" th:method="get">
+	<div class="page-container">
+		<div class="cl pd-5 bg-1 bk-gray">
+			<span class="l">
+				<!--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>-->
+				<a class="btn btn-primary radius" href="javascript:;" onclick="admin_loan_add('添加借款','admin-loan-add.html','800')" th:onclick="'javascript:admin_loan_add(\'添加借款\',\'/admin/loan/add\',\'800\',\'500\');'"><i class="Hui-iconfont">&#xe600;</i> 添加借款</a>
+			</span>
+			<span class="r">共有数据：<strong th:text="${pageInfo?.total}">54</strong> 条</span>
+		</div>
+		<table class="table table-border table-bordered table-hover table-bg">
+			<thead>
+				<tr>
+					<th scope="col" colspan="4">借款管理</th>
+				</tr>
+				<tr class="text-c">
+					<th>借款人</th>
+					<th>借款金额</th>
+					<th>月利息</th>
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="text-c" th:each="model:${pageInfo?.list}" th:object="${model}">
+					<td th:text="*{loanName}"></td>
+					<td th:text="*{loanPrice}"></td>
+					<td th:text="*{accrual}"></td>
+					<td class="f-14">
+						<!--<a title="续借" href="javascript:;" style="text-decoration:none" th:onclick="'javascript:admin_role_permission(\'角色授权\',\'/admin/role/'+*{id}+'/permission\',\'380\',\'600\');'"><i class="iconfont">&#xe68f;</i></a>-->
+						<a title="详情" href="javascript:;" onclick="admin_loan_show(this,'10001')" th:onclick="'javascript:loan_view(\'查看详情\', \'/admin/loan/'+*{id}+'\',\'800\',\'500\');'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe665;</i></a>
+						<a title="编辑" href="javascript:;" onclick="admin_loan_edit('借款编辑','admin-loan-add.html','1')" th:onclick="'javascript:admin_loan_edit(\'借款编辑\',\'/admin/loan/edit/'+*{id}+'\',\'800\',\'500\');'" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a title="删除" href="javascript:;" onclick="admin_loan_del(this,'1')" th:onclick="'javascript:admin_loan_del(this, \'/admin/loan/'+*{id}+'\');'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+						<!--iconfontyyy-->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div th:replace="admin/common/page :: page"></div>
+	</div>
+</form>
+
+<script type="text/javascript" th:src="@{/js/common/page.js}"></script>
+<script type="text/javascript" th:src="@{/js/admin/manager/admin-loan.js}"></script>
+</body>
+</html>

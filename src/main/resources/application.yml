@@ -134,8 +134,8 @@ logging:
 
 #数据库密码加密
 #java -cp druid-1.1.0.jar com.alibaba.druid.filter.config.ConfigTools 你的密码
-publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIypmsbdlv4rDJUdLTv7J0YHLuxdc4ob8uH/R4+ORNTBaK3+lQa+Ly/CfuU22kVrmywXFV343zhi1VFg/JeeIJMCAwEAAQ==
-password: dpCDgovbI8DVbkIkyJe6Jqep64P2wc3MNnA6k0U0NyywFCbSeupWWpeFeXRa2gW44ZvywMgN/y8AHHn5cCYHDw==
+publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKhOe/ATBZlkT9Mpu9JOFQk1TfLJ29qJeEsLuW2FuwXbHb1ToIjZU8qaIU5TiqZYWlBw13mN2W1S7jIujHavT+UCAwEAAQ==
+password: eBTlJnkH1A8JZrqsmYdwX4v9KFLw0fswHEgGtDK6ca6RQJKn+vh2o8Vk3wHf5hd7cInQHXeRbfNF3DgrPwFeKw==
 
 #上传文件配置信息
 #文件仓库地址

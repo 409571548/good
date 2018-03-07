@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{admin/common/common}">
+<head>
+    <title>查看日志详情</title>
+</head>
+
+<body layout:fragment="content">
+    <form id="myForm" th:action="@{/admin/loan}" th:method="get"  th:object="${model}">
+        <div class="page-container">
+            <div class="cl pd-5 bg-1 bk-gray">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">借款人：</label>
+                        <h4><strong><span th:text="*{loanName}"></span></strong></h4>
+                    <label class="form-label col-xs-4 col-sm-3">借款金额：</label>
+                        <h4><strong><span th:text="*{loanPrice}"></span> 元</strong><h4>
+                    <label class="form-label col-xs-4 col-sm-3">月付利息：</label>
+                        <h4><strong><span th:text="*{accrual}"></span> 元</strong><h4>
+                </div>
+            </div>
+            <table class="table table-border table-bordered table-hover table-bg">
+                <thead>
+                <tr>
+                    <th scope="col" colspan="4">还款信息</th>
+                </tr>
+                <tr class="text-c">
+                    <th>借款人</th>
+                    <th>借款金额</th>
+                    <th>月利息</th>
+                    <th width="100">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-c" th:each="model:${pageInfo?.list}" th:object="${model}">
+                    <td th:text="*{loanName}"></td>
+                    <td th:text="*{loanPrice}"></td>
+                    <td th:text="*{accrual}"></td>
+                    <td class="f-14">
+                        <!--<a title="续借" href="javascript:;" style="text-decoration:none" th:onclick="'javascript:admin_role_permission(\'角色授权\',\'/admin/role/'+*{id}+'/permission\',\'380\',\'600\');'"><i class="iconfont">&#xe68f;</i></a>-->
+                        <a title="详情" href="javascript:;" onclick="admin_loan_show(this,'10001')" th:onclick="'javascript:loan_view(\'查看详情\', \'/admin/loan/'+*{id}+'\',\'800\',\'500\');'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe665;</i></a>
+                        <a title="编辑" href="javascript:;" onclick="admin_loan_edit('借款编辑','admin-loan-add.html','1')" th:onclick="'javascript:admin_loan_edit(\'借款编辑\',\'/admin/loan/edit/'+*{id}+'\',\'800\',\'500\');'" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                        <a title="删除" href="javascript:;" onclick="admin_loan_del(this,'1')" th:onclick="'javascript:admin_loan_del(this, \'/admin/loan/'+*{id}+'\');'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                        <!--iconfontyyy-->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div th:replace="admin/common/page :: page"></div>
+        </div>
+    </form>
+</body>
+</html>
