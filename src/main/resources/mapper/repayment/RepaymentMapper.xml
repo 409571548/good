@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.modules.repayment.mapper.RepaymentMapper" >
+    <resultMap id="BaseResultMap" type="com.jk.modules.repayment.model.Repayment">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="loan_id" jdbcType="BIGINT" property="loanId" />
+        <result column="repay_time" jdbcType="TIMESTAMP" property="repayTime" />
+        <result column="accrual_interest_payable" jdbcType="DOUBLE" property="accrualInterestPayable" />
+        <result column="actual_payment_amount" jdbcType="DOUBLE" property="actualPaymentAmount" />
+        <result column="arrearage" jdbcType="DOUBLE" property="arrearage" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+        <result column="modify_by" jdbcType="VARCHAR" property="modifyBy" />
+    </resultMap>
+
+    <select id="findList" resultMap="BaseResultMap">
+        SELECT * FROM Repayment
+    </select>
+
+    <insert id="save" parameterType="com.jk.modules.loans.model.Loan">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into repayment (loan_id, repay_time, accrual_interest_payable,
+        actual_payment_amount, arrearage, remark,
+        create_time, create_by, modify_time,
+        modify_by)
+        values (#{loanId,jdbcType=BIGINT}, #{repayTime,jdbcType=TIMESTAMP}, #{accrualInterestPayable,jdbcType=DOUBLE},
+        #{actualPaymentAmount,jdbcType=DOUBLE}, #{arrearage,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP},
+        #{modifyBy,jdbcType=VARCHAR})
+    </insert>
+</mapper>

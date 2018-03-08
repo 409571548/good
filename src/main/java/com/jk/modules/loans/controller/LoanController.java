@@ -8,6 +8,8 @@ import com.jk.common.validator.group.Create;
 import com.jk.common.validator.group.Update;
 import com.jk.modules.loans.model.Loan;
 import com.jk.modules.loans.service.LoanService;
+import com.jk.modules.repayment.model.Repayment;
+import com.jk.modules.repayment.service.RepaymentService;
 import com.jk.modules.sys.model.Role;
 import com.jk.modules.sys.model.UserRole;
 import com.xiaoleilu.hutool.log.Log;
@@ -20,6 +22,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by zhg on 2018/3/6.
@@ -36,11 +40,14 @@ public class LoanController extends BaseController{
     @Autowired
     private LoanService loanService;
 
+    @Autowired
+    private RepaymentService repaymentService;
+
     @RequiresPermissions("loan:list")
     @GetMapping
     public String list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                        ModelMap modelMap){
-        loanService.findAll();
+        //loanService.findAll();
         log.debug("分页查询贷款记录! pageNum = {}", pageNum);
         PageInfo<Loan> pageInfo = loanService.findPageListByWhere(pageNum, PAGESIZE, null);
         log.info("分页查询贷款记录！ pageInfo = {}", pageInfo);
@@ -106,7 +113,14 @@ public class LoanController extends BaseController{
     @GetMapping("/{id}")
     public String view(@PathVariable("id")Long id, ModelMap modelMap){
         Loan loan = loanService.findById(id);
+        Repayment repayment = new Repayment();
+        repayment.setLoanId(id);
 
+        List<Repayment> pageInfo = repaymentService.findListByWhere(repayment);
+        /*log.debug("分页查询贷款记录! pageNum = {}", pageNum);
+        PageInfo<Repayment> pageInfo = repaymentService.findPageListByWhere(pageNum, PAGESIZE, repayment);
+        log.info("分页查询贷款记录！ pageInfo = {}", pageInfo);*/
+        modelMap.put("pageInfo", pageInfo);
         modelMap.put("model", loan);
         return BASE_PATH + "loan-view";
     }

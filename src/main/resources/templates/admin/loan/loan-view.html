@@ -22,31 +22,29 @@
             <table class="table table-border table-bordered table-hover table-bg">
                 <thead>
                 <tr>
-                    <th scope="col" colspan="4">还款信息</th>
+                    <th scope="col" colspan="6">还款信息</th>
                 </tr>
                 <tr class="text-c">
-                    <th>借款人</th>
-                    <th>借款金额</th>
-                    <th>月利息</th>
-                    <th width="100">操作</th>
+                    <th>ID</th>
+                    <th>还款时间</th>
+                    <th>应还利息</th>
+                    <th>实际还款</th>
+                    <th>所欠利息</th>
+                    <th>备注</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="text-c" th:each="model:${pageInfo?.list}" th:object="${model}">
-                    <td th:text="*{loanName}"></td>
-                    <td th:text="*{loanPrice}"></td>
-                    <td th:text="*{accrual}"></td>
-                    <td class="f-14">
-                        <!--<a title="续借" href="javascript:;" style="text-decoration:none" th:onclick="'javascript:admin_role_permission(\'角色授权\',\'/admin/role/'+*{id}+'/permission\',\'380\',\'600\');'"><i class="iconfont">&#xe68f;</i></a>-->
-                        <a title="详情" href="javascript:;" onclick="admin_loan_show(this,'10001')" th:onclick="'javascript:loan_view(\'查看详情\', \'/admin/loan/'+*{id}+'\',\'800\',\'500\');'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe665;</i></a>
-                        <a title="编辑" href="javascript:;" onclick="admin_loan_edit('借款编辑','admin-loan-add.html','1')" th:onclick="'javascript:admin_loan_edit(\'借款编辑\',\'/admin/loan/edit/'+*{id}+'\',\'800\',\'500\');'" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-                        <a title="删除" href="javascript:;" onclick="admin_loan_del(this,'1')" th:onclick="'javascript:admin_loan_del(this, \'/admin/loan/'+*{id}+'\');'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
-                        <!--iconfontyyy-->
-                    </td>
+                <tr class="text-c" th:each="model:${pageInfo}" th:object="${model}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{repayTime}"></td>
+                    <td th:text="*{accrualInterestPayable}"></td>
+                    <td th:text="*{actualPaymentAmount}"></td>
+                    <td th:text="*{arrearage}"></td>
+                    <td th:text="*{remark}"></td>
                 </tr>
                 </tbody>
             </table>
-            <div th:replace="admin/common/page :: page"></div>
+            <!--<div th:replace="admin/common/page :: page"></div>-->
         </div>
     </form>
 </body>

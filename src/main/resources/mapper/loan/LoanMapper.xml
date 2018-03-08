@@ -2,12 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jk.modules.loans.mapper.LoanMapper" >
     <resultMap id="BaseResultMap" type="com.jk.modules.loans.model.Loan" >
-        <id column="id" property="id" jdbcType="BIGINT" />
-        <result column="loan_name" property="loanName" jdbcType="VARCHAR" />
-        <result column="loan_price" property="loanPrice" jdbcType="DOUBLE" />
-        <result column="accrual" property="accrual" jdbcType="DOUBLE" />
-        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="loan_name" jdbcType="VARCHAR" property="loanName" />
+        <result column="loan_price" jdbcType="DOUBLE" property="loanPrice" />
+        <result column="accrual" jdbcType="DOUBLE" property="accrual" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+        <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+        <result column="modify_by" jdbcType="VARCHAR" property="modifyBy" />
     </resultMap>
 
     <select id="findList" resultMap="BaseResultMap">
@@ -16,15 +19,13 @@
 
     <insert id="save" parameterType="com.jk.modules.loans.model.Loan">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-            SELECT
-            LAST_INSERT_ID()
+            SELECT LAST_INSERT_ID()
         </selectKey>
-        INSERT INTO loan (loan_name,loan_price,accrual,create_time,modify_time)
-        VALUE (
-        #{loanName,jdbcType=VARCHAR},
-        #{loanPrice,jdbcType=DOUBLE},
-        #{accrual,jdbcType=DOUBLE},
-        #{createTime,jdbcType=TIMESTAMP},
-        #{modifyTime,jdbcType=TIMESTAMP})
+        insert into loan (loan_name, loan_price, accrual,
+        remark, create_time, modify_time,
+        create_by, modify_by)
+        values (#{loanName,jdbcType=VARCHAR}, #{loanPrice,jdbcType=DOUBLE}, #{accrual,jdbcType=DOUBLE},
+        #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP},
+        #{createBy,jdbcType=VARCHAR}, #{modifyBy,jdbcType=VARCHAR})
     </insert>
 </mapper>
